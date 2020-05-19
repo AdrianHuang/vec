@@ -18,6 +18,10 @@
         : (size_t) 1 << (64 - __builtin_clzl(s)) /* next power of 2 */
 
 #define v(t, s, name, ...)                                              \
+    (void) ((struct {                                                   \
+         _Static_assert(s <= 8, "it is too big");                       \
+         int dummy;                                                     \
+     }){1});                                                            \
     union {                                                             \
         STRUCT_BODY(t);                                                 \
         struct {                                                        \
